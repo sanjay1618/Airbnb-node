@@ -13,7 +13,7 @@ export async function createHotel(hotel: hotelDTO) {
             ratingsCount : hotel.ratingsCount
         });
 
-        logger.info(`New Hotel created successfully", ${hotelObj?.id}`);
+        logger.info(`New Hotel created successfully ${hotelObj?.id}`);
 
         return hotelObj;
     }
@@ -38,5 +38,13 @@ export async function getHotelByID(id : number) {
 
     }
    
+}
+
+export async function getAllHotels() {
+
+        const hotelsObj = await Hotel.findAll();
+        logger.info(`Returned all the hotels in the form of an array and will be convered to JSON in service layer`);
+        return hotelsObj;
+
 }
 

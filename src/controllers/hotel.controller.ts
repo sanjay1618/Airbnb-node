@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createHotelService, getHotelByIDService } from "../services/hotel.service";
+import { createHotelService, getHotelByIDService, getHotelsService } from "../services/hotel.service";
 import { hotelDTO } from "../dtos/hotelDTO";
 import logger from "../config/logger.config";
 
@@ -25,5 +25,17 @@ export async function getHotelByIDHandler(req: Request, res: Response, next : Ne
     catch(error) {
         next(error);
 
+    }
+}
+
+export async function getHotelsHandler(req: Request, res: Response, next : NextFunction) {
+    try {
+
+        const hotelsJson = await getHotelsService();
+        res.status(200).json(hotelsJson);
+
+    }
+    catch (error) {
+        next(error);
     }
 }
