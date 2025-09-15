@@ -1,6 +1,7 @@
 import { hotelDTO } from "../dtos/hotelDTO";
 import Hotel from "../db/models/Hotel";
 import logger from "../config/logger.config";
+import { NotFoundError } from "../utils/errors/app.error";
 
 
 export async function createHotel(hotel: hotelDTO) {
@@ -48,3 +49,18 @@ export async function getAllHotels() {
 
 }
 
+export async function softDeleteHotelByID(id : number) {
+    const hotel = await Hotel.findByPk(id);
+
+    if (!hotel) {
+        logger.error(`No Hotel found wiht the given ID : ${id}`);
+        throw new NotFoundError('No Hotel Found');
+    }
+
+    //if we reached here it means, we found the hotel and we will just updated the deletedAt property
+
+    hotel.deletedAt = new Date();
+    hotel.save();
+    logger.info(`Hotel soft deleted : Id : ${hotel.id}`);
+    return hotel;
+}
