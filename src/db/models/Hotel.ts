@@ -13,7 +13,7 @@ class Hotel extends Model<InferAttributes<Hotel>, InferCreationAttributes<Hotel>
     declare updatedAt: CreationOptional<Date>;
     declare rating?: number;
     declare ratingsCount?: number;
-    declare deletedAt : CreationOptional<Date>;
+    declare deletedAt : CreationOptional<Date | null>;
 
 }
 

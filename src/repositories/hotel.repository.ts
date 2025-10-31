@@ -26,7 +26,7 @@ export async function createHotel(hotel: hotelDTO) {
 export async function getHotelByID(id : number) {
     try {
         const hotelObj = await Hotel.findByPk(id);
-        if(hotelObj !== null) {
+        if(hotelObj !== null ) {
              logger.info(`New Hotel data retrieved for the ID ${hotelObj.id}`)
         }
         else {
@@ -43,7 +43,11 @@ export async function getHotelByID(id : number) {
 
 export async function getAllHotels() {
 
-        const hotelsObj = await Hotel.findAll();
+        const hotelsObj = await Hotel.findAll({
+            where : {
+                deletedAt : null
+            }
+        });
         logger.info(`Returned all the hotels in the form of an array and will be convered to JSON in service layer`);
         return hotelsObj;
 
